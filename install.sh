@@ -6,21 +6,12 @@ PASS="${2:-changeme}"
 HTTP_PORT="${3:-8080}"
 SOCKS_PORT="${4:-1080}"
 
-# 检测系统，不依赖 apt
-if command -v apt &>/dev/null; then
-    apt update -y && apt install -y 3proxy
-elif command -v yum &>/dev/null; then
-    yum install -y 3proxy
-elif command -v dnf &>/dev/null; then
-    dnf install -y 3proxy
-else
-    # 从源码编译
-    cd /tmp
-    wget -q https://github.com/3proxy/3proxy/archive/refs/tags/0.9.4.tar.gz
-    tar xf 0.9.4.tar.gz && cd 3proxy-0.9.4
-    make -f Makefile.Linux
-    make -f Makefile.Linux install
-fi
+# 从源码编译
+cd /tmp
+wget -q https://github.com/3proxy/3proxy/archive/refs/tags/0.9.6.tar.gz
+tar xf 0.9.6.tar.gz && cd 3proxy-0.9.6
+make -f Makefile.Linux
+make -f Makefile.Linux install
 
 mkdir -p /etc/3proxy /var/log
 
